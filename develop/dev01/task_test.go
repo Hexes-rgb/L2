@@ -18,7 +18,6 @@ func TestProgram(t *testing.T) {
 	// Создаем канал для завершения программы
 	exit := make(chan struct{})
 
-	// Запускаем программу
 	go func() {
 		defer close(exit)
 		main()
@@ -33,16 +32,13 @@ func TestProgram(t *testing.T) {
 	// Ждем, пока программа завершится
 	select {
 	case <-exit:
-		// Программа завершилась
 	case <-time.After(5 * time.Second):
 		t.Fatal("program did not exit in a timely manner")
 	}
 
-	// Восстанавливаем оригинальный вывод
 	w.Close()
 	os.Stdout = oldStdout
 
-	// Считываем вывод программы
 	var buf bytes.Buffer
 	_, err := buf.ReadFrom(r)
 	if err != nil {
@@ -58,7 +54,6 @@ func TestProgram(t *testing.T) {
 		t.Fatalf("failed to compile regex pattern: %v", err)
 	}
 
-	// Проверяем каждую строку буфера на соответствие шаблону
 	scanner := bufio.NewScanner(&buf)
 	for scanner.Scan() {
 		line := scanner.Text()
