@@ -7,7 +7,7 @@ import (
 	"unicode"
 )
 
-func UnpackString(input string) (string, error) {
+func unpackString(input string) (string, error) {
 	var result strings.Builder
 	var prevRune rune
 	for i, r := range input {
@@ -28,7 +28,7 @@ func UnpackString(input string) (string, error) {
 func main() {
 	examples := []string{"a4bc2d5e", "abcd", "45", ""}
 	for _, example := range examples {
-		unpacked, err := UnpackString(example)
+		unpacked, err := unpackString(example)
 		if err != nil {
 			fmt.Printf("Error: %v\n", err)
 		} else {

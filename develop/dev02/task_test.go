@@ -18,7 +18,7 @@ func TestUnpackString(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		result, err := UnpackString(tc.input)
+		result, err := unpackString(tc.input)
 
 		if tc.err && err == nil {
 			t.Errorf("UnpackString(%q) expected an error, but got none", tc.input)
